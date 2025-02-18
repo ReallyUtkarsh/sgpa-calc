@@ -34,7 +34,7 @@ function calculateSGPA() {
 
     if (valid) {
         const sgpa = totalCreditPoints / totalCredits;
-        resultHtml += `</table><p style="text-align: center;">SGPA: ${sgpa.toFixed(2)}</p>`;
+        resultHtml += `</table><p class="bold-text">SGPA: ${sgpa.toFixed(2)}</p>`;
         document.getElementById('result').innerHTML = resultHtml;
     }
 }
