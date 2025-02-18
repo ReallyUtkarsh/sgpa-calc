@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MPA Sem-1 SGPA Calculator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <!-- Just leaving the blue bar without items -->
+        </ul>
+    </nav>
+    <h1>MPA Sem-1 SGPA Calculator</h1>
+    <form id="sgpaForm">
+        <div id="subjects">
+            <div class="subject">
+                <label>CIPA (Paper 1):</label>
+                <input type="number" name="theory1" placeholder="Theory Marks" min="1" max="70">
+                <input type="number" name="sessional1" placeholder="Sessional Marks" min="0" max="30">
+            </div>
+            <div class="subject">
+                <label>ATCE (Paper 2):</label>
+                <input type="number" name="theory2" placeholder="Theory Marks" min="1" max="70">
+                <input type="number" name="sessional2" placeholder="Sessional Marks" min="0" max="30">
+            </div>
+            <div class="subject">
+                <label>PPA (Paper 3):</label>
+                <input type="number" name="theory3" placeholder="Theory Marks" min="1" max="70">
+                <input type="number" name="sessional3" placeholder="Sessional Marks" min="0" max="30">
+            </div>
+            <div class="subject">
+                <label>EIFA (Paper 4):</label>
+                <input type="number" name="theory4" placeholder="Theory Marks" min="1" max="70">
+                <input type="number" name="sessional4" placeholder="Sessional Marks" min="0" max="30">
+            </div>
+            <div class="subject">
+                <label>CA (Paper 5):</label>
+                <input type="number" name="theory5" placeholder="Theory Marks" min="1" max="70">
+                <input type="number" name="sessional5" placeholder="Sessional Marks" min="0" max="30">
+            </div>
+        </div>
+        <button type="button" onclick="calculateSGPA()"><i class="fas fa-calculator"></i> Calculate SGPA</button>
+        <button type="button" onclick="resetValues()"><i class="fas fa-redo"></i> Reset</button>
+    </form>
+    <div id="result"></div>
+    <footer id="footer">
+        <p>Made by Utkarsh with ❤️</p>
+        <p>Contact: <a href="https://t.me/ReallyUtkarsh">@ReallyUtkarsh</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
