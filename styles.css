@@ -29,7 +29,8 @@ h1, footer {
 }
 
 form {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     margin: 20px auto;
     padding: 20px;
     background-color: #ffffff;
@@ -45,11 +46,11 @@ div.subject {
 }
 
 label {
-    width: 150px;
+    width: 45%;
 }
 
 input[type="number"] {
-    width: 100px;
+    width: 45%;
     margin-left: 10px;
 }
 
@@ -70,7 +71,8 @@ button:hover {
 }
 
 table {
-    width: 80%;
+    width: 90%;
+    max-width: 400px;
     margin: 0 auto;
     border-collapse: collapse;
     margin-top: 20px;
@@ -101,4 +103,35 @@ footer {
 
 footer a {
     color: #4CAF50; /* Change to a visible color */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    nav h1 {
+        font-size: 18px;
+    }
+
+    form {
+        width: 95%;
+        padding: 10px;
+    }
+
+    div.subject {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    label, input[type="number"] {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    table {
+        width: 95%;
+    }
 }
