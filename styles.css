@@ -1,20 +1,16 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f8f8f8;
     margin: 0;
     padding: 0;
+    background-image: url('doodles.png'); /* Add subtle light doodles */
+    background-repeat: repeat;
 }
 
 nav {
     background-color: #007BFF;
     padding: 10px;
     text-align: center;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
 }
 
 nav h1 {
@@ -63,27 +59,7 @@ button {
 
 button:hover {
     background-color: #0056b3;
-    transition: background-color 0.3s;
-}
-
-table {
-    width: 80%;
-    max-width: 400px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-}
-
-.bold-text {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
+    transition: 0.3s;
 }
 
 footer {
@@ -95,15 +71,4 @@ footer {
 
 footer a {
     color: #4CAF50;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    form {
-        width: 95%;
-    }
-
-    table {
-        width: 95%;
-    }
 }
