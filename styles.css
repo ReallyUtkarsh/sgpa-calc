@@ -1,74 +1,55 @@
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-    background-image: url('doodles.png'); /* Add subtle light doodles */
-    background-repeat: repeat;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
 }
-
-nav {
-    background-color: #007BFF;
-    padding: 10px;
-    text-align: center;
+header {
+  background-color: #0056b3;
+  color: white;
+  padding: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
-
-nav h1 {
-    color: white;
-    margin: 0;
-    font-size: 24px;
+main {
+  padding: 2rem;
 }
-
-h1, footer {
-    text-align: center;
-    color: #333;
+input[type="number"] {
+  width: 80px;
+  padding: 0.5rem;
+  margin: 0.5rem;
 }
-
-form {
-    width: 90%;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+select, input[type="text"] {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-size: 1rem;
 }
-
-label {
-    display: block;
-    margin-top: 10px;
+table {
+  margin: 1rem auto;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 600px;
 }
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+th, td {
+  border: 1px solid #999;
+  padding: 0.5rem;
 }
-
-button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
+.error {
+  color: red;
+  font-size: 0.9rem;
 }
-
-button:hover {
-    background-color: #0056b3;
-    transition: 0.3s;
+#calculateBtn {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  margin: 1rem;
 }
-
 footer {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  font-size: 1rem;
 }
-
-footer a {
-    color: #4CAF50;
+a {
+  color: white;
+  text-decoration: none;
 }
