@@ -1,51 +1,48 @@
 function resetValues() {
-    document.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+    document.querySelectorAll('input, select').forEach(input => input.value = '');
     document.getElementById('result').innerHTML = '';
 }
 
 function calculateSGPA() {
-    let totalCredits = 15; // 5 subjects, each with 3 credits
+    let rollNumber = document.getElementById('rollNumber').value.trim();
+    let semester = document.getElementById('semester').value;
+    if (!rollNumber) {
+        alert("Roll Number is mandatory!");
+        return;
+    }
+
+    let totalCredits = 15;
     let totalCreditPoints = 0;
     let valid = true;
     let resultHtml = '<table><tr><th>Subject</th><th>Theory</th><th>Sessional</th><th>Grade Point</th></tr>';
 
     for (let i = 1; i <= 5; i++) {
-        const theoryMarks = parseFloat(document.querySelector(`input[name=theory${i}]`).value);
-        const sessionalMarks = parseFloat(document.querySelector(`input[name=sessional${i}]`).value);
-
-        if (isNaN(theoryMarks) || isNaN(sessionalMarks) || theoryMarks > 70 || theoryMarks < 1 || sessionalMarks > 30 || sessionalMarks < 0) {
-            document.getElementById('result').innerHTML = '<p style="color: red;">Invalid input! Please ensure theory marks are between 1 and 70 and sessional marks are between 0 and 30.</p>';
-            valid = false;
-            break;
-        }
+        let theoryMarks = parseFloat(document.querySelector(`input[name=theory${i}]`).value);
+        let sessionalMarks = parseFloat(document.querySelector(`input[name=sessional${i}]`).value);
 
         const totalMarks = theoryMarks + sessionalMarks;
         const gradePoint = getGradePoint(totalMarks);
-        const creditPoints = gradePoint * 3; // Default credit is 3
-        totalCreditPoints += creditPoints;
+        totalCreditPoints += gradePoint * 3;
 
-        resultHtml += `<tr>
-                           <td>Paper ${i}</td>
-                           <td>${theoryMarks}</td>
-                           <td>${sessionalMarks}</td>
-                           <td>${gradePoint}</td>
-                       </tr>`;
+        resultHtml += `<tr><td>Paper ${i}</td><td>${theoryMarks}</td><td>${sessionalMarks}</td><td>${gradePoint}</td></tr>`;
     }
 
-    if (valid) {
-        const sgpa = totalCreditPoints / totalCredits;
-        resultHtml += `</table><p class="bold-text">SGPA: ${sgpa.toFixed(2)}</p>`;
-        document.getElementById('result').innerHTML = resultHtml;
-    }
+    const sgpa = (totalCreditPoints / totalCredits).toFixed(2);
+    resultHtml += `</table><p class="bold-text">SGPA: ${sgpa}</p>`;
+    document.getElementById('result').innerHTML = resultHtml;
 }
 
-function getGradePoint(marks) {
-    if (marks >= 91) return 10;
-    if (marks >= 81) return 9;
-    if (marks >= 71) return 8;
-    if (marks >= 61) return 7;
-    if (marks >= 51) return 6;
-    if (marks >= 41) return 5;
-    if (marks >= 31) return 4;
-    return 0;
+async function submitSGPA() {
+    let rollNumber = document.getElementById('rollNumber').value;
+    let semester = document.getElementById('semester').value;
+    let sgpa = document.querySelector('.bold-text').textContent.replace("SGPA: ", "").trim();
+
+    await fetch("https://script.google.com/macros/s/AKfycbzlTuPxDBTvMgT2dHdK0SZPTvCtxQME2XbjLXCpUXD8omBapA5DDTMo1p1Yw2fv-eJdow/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rollNumber, semester, sgpa })
+    });
+
+    alert("SGPA saved successfully!");
 }
+document.getElementById("saveSGPA").addEventListener("click", submitSGPA);
