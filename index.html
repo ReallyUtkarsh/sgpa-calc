@@ -1,161 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BHU MPA SGPA Calculator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      text-align: center;
-      background-image: url('https://www.transparenttextures.com/patterns/connected.png');
-    }
-    header {
-      background-color: #0056b3;
-      color: white;
-      padding: 1rem;
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-    main {
-      padding: 2rem;
+      font-family: 'Poppins', sans-serif;
+      background-color: #e5ddd5;
+      background-image: url('https://www.transparenttextures.com/patterns/speech-bubbles.png');
+      background-repeat: repeat;
+      background-attachment: fixed;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 20px;
     }
-    .input-group {
-      margin: 0.8rem 0;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    input[type="number"], select {
-      padding: 0.6rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      width: 200px;
+
+    header {
+      background: rgba(0, 86, 179, 0.8);
+      backdrop-filter: blur(6px);
+      width: 100%;
       text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 1.8rem;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 20px;
     }
-    #marksForm > div {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.5rem 0;
-      gap: 10px;
-      background-color: #fff;
-      padding: 0.5rem;
-      border-radius: 12px;
+
+    .container {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 30px;
       width: 95%;
       max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    #marksForm label {
-      flex: 1;
-      text-align: left;
-    }
-    #marksForm input {
-      flex: 1;
-    }
-    table {
-      margin: 1rem auto;
-      border-collapse: collapse;
-      width: 95%;
-      max-width: 600px;
-      background-color: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    th, td {
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
       border: 1px solid #ccc;
-      padding: 0.6rem;
-    }
-    #calculateBtn {
-      padding: 0.7rem 1.5rem;
+      border-radius: 10px;
       font-size: 1rem;
-      margin: 1rem;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 20px;
-      cursor: pointer;
     }
-    #calculateBtn:hover {
+
+    button {
       background-color: #0056b3;
-    }
-    footer {
-      background-color: black;
       color: white;
-      padding: 1rem;
-      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
-    footer a {
+
+    button:hover {
+      background-color: #003f80;
+    }
+
+    .subject-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .subject-row input {
+      flex: 1;
+    }
+
+    .results {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .results th, .results td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .results th {
+      background-color: #f2f2f2;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: white;
+      background: black;
+      width: 100%;
+      padding: 10px;
+      border-radius: 20px;
+    }
+
+    .footer-link {
       color: green;
       text-decoration: underline;
-    }
-    @media (max-width: 600px) {
-      #marksForm > div {
-        flex-direction: column;
-        align-items: center;
-      }
     }
   </style>
 </head>
 <body>
-  <header>BHU MPA SGPA CALCULATOR</header>
-  <main>
-    <div class="input-group">
-      <label for="roll">Roll Number:</label>
-      <input type="number" id="roll" inputmode="numeric" pattern="\d*" />
-    </div>
-    <div class="input-group">
-      <label for="semester">Semester:</label>
-      <select id="semester">
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </select>
-    </div>
-    <form id="marksForm"></form>
-    <button id="calculateBtn" disabled>Calculate SGPA</button>
-    <div id="result"></div>
-  </main>
+  <header>🎓 BHU MPA SGPA CALCULATOR</header>
+  <div class="container">
+    <label>🆔 Roll Number</label>
+    <input type="number" id="roll" inputmode="numeric">
+
+    <label>🎓 Semester</label>
+    <select id="semester" onchange="loadSubjects()">
+      <option value="">--Select Semester--</option>
+      <option value="1">Semester 1</option>
+      <option value="2">Semester 2</option>
+    </select>
+
+    <div id="subjects"></div>
+
+    <button id="calculate" onclick="calculateSGPA()" disabled>📊 Calculate SGPA</button>
+
+    <div id="output"></div>
+  </div>
+
   <footer>
-    Made by Utkarsh with ❤️<br />
-    <a href="https://t.me/ReallyUtkarsh" target="_blank">Contact - @ReallyUtkarsh</a>
+    Made by Utkarsh with ❤️<br>
+    <a class="footer-link" href="https://t.me/ReallyUtkarsh" target="_blank">Contact - @ReallyUtkarsh</a>
   </footer>
+
   <script>
-    const subjects = {
+    const subjectsBySemester = {
       1: ["PA", "ADT - CE", "PPA", "EIFA", "C&A"],
       2: ["PA", "ADT - ME", "PPA", "IAD", "C&A"]
     };
 
-    const form = document.getElementById("marksForm");
-    const semesterSelect = document.getElementById("semester");
-    const calculateBtn = document.getElementById("calculateBtn");
-    const resultDiv = document.getElementById("result");
+    function loadSubjects() {
+      const semester = document.getElementById('semester').value;
+      const subjectDiv = document.getElementById('subjects');
+      subjectDiv.innerHTML = '';
 
-    semesterSelect.addEventListener("change", () => {
-      form.innerHTML = "";
-      resultDiv.innerHTML = "";
-      const sem = semesterSelect.value;
-      if (!sem) return;
+      if (!semester) return;
 
-      subjects[sem].forEach(sub => {
-        const row = document.createElement("div");
+      subjectsBySemester[semester].forEach(sub => {
+        const row = document.createElement('div');
+        row.className = 'subject-row';
         row.innerHTML = `
-          <label>${sub}</label>
-          <input type="number" min="0" max="30" placeholder="Sessional" inputmode="numeric" required />
-          <input type="number" min="0" max="70" placeholder="Theory" inputmode="numeric" required />
+          <label style="width: 30%;">${sub}</label>
+          <input type="number" placeholder="Sessional (30)" max="30" min="0" inputmode="numeric" class="sessional">
+          <input type="number" placeholder="Theory (70)" max="70" min="0" inputmode="numeric" class="theory">
         `;
-        form.appendChild(row);
+        subjectDiv.appendChild(row);
       });
-      calculateBtn.disabled = false;
-    });
+
+      document.getElementById('calculate').disabled = false;
+    }
 
     function getGradePoint(total) {
       if (total >= 91) return 10;
@@ -168,48 +169,54 @@
       return 0;
     }
 
-    calculateBtn.addEventListener("click", () => {
-      const roll = document.getElementById("roll").value;
-      const sem = semesterSelect.value;
-      if (!roll || !sem) return alert("Please fill in roll number and semester.");
+    function calculateSGPA() {
+      const roll = document.getElementById('roll').value;
+      if (!roll) return alert("Please enter Roll Number");
 
-      const inputs = form.querySelectorAll("input");
-      const data = [];
-      let totalPoints = 0;
-      let totalCredits = 0;
+      const sessionals = document.querySelectorAll('.sessional');
+      const theory = document.querySelectorAll('.theory');
+      const semester = document.getElementById('semester').value;
+      const subjects = subjectsBySemester[semester];
 
-      for (let i = 0; i < inputs.length; i += 2) {
-        const sessional = parseInt(inputs[i].value);
-        const theory = parseInt(inputs[i + 1].value);
-        if (sessional > 30 || theory > 70) return alert("Marks exceed maximum allowed.");
-        const total = sessional + theory;
-        const gradePoint = getGradePoint(total);
-        totalPoints += gradePoint * 3;
-        totalCredits += 3;
-        data.push({
-          subject: subjects[sem][i / 2],
-          sessional,
-          theory,
-          total,
-          gradePoint
-        });
+      let totalCredits = subjects.length * 3;
+      let totalCreditPoints = 0;
+
+      let table = `<table class='results'><tr><th>Subject</th><th>Sessional</th><th>Theory</th><th>Total</th><th>Grade</th></tr>`;
+
+      for (let i = 0; i < subjects.length; i++) {
+        const s = parseInt(sessionals[i].value || 0);
+        const t = parseInt(theory[i].value || 0);
+
+        if (s > 30 || t > 70) {
+          alert("Marks exceed limit in " + subjects[i]);
+          return;
+        }
+
+        const total = s + t;
+        const grade = getGradePoint(total);
+        totalCreditPoints += grade * 3;
+
+        table += `<tr><td>${subjects[i]}</td><td>${s}</td><td>${t}</td><td>${total}</td><td>${grade}</td></tr>`;
       }
 
-      const sgpa = (totalPoints / totalCredits).toFixed(2);
+      const sgpa = (totalCreditPoints / totalCredits).toFixed(2);
+      table += `</table><h3 style='text-align:center;'>🎯 SGPA: ${sgpa}</h3>`;
 
-      let html = `<table><tr><th>Subject</th><th>Sessional</th><th>Theory</th><th>Total</th><th>Grade</th></tr>`;
-      data.forEach(row => {
-        html += `<tr><td>${row.subject}</td><td>${row.sessional}</td><td>${row.theory}</td><td>${row.total}</td><td>${row.gradePoint}</td></tr>`;
-      });
-      html += `</table><h2>SGPA: ${sgpa}</h2>`;
-      resultDiv.innerHTML = html;
+      document.getElementById('output').innerHTML = table;
 
       fetch("https://script.google.com/macros/s/AKfycbxHnblehTGfyta5FdWD9POe172FJLWw1MwwUvxVEjrjbRiV1RgvmX7kVkZno0ymznua/exec", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ roll: roll, sgpa: sgpa })
-      });
-    });
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          rollNumber: roll,
+          sgpa: sgpa
+        })
+      }).then(res => res.text())
+        .then(data => console.log("Saved:", data))
+        .catch(err => console.error("Error:", err));
+    }
   </script>
 </body>
 </html>
