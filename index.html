@@ -5,15 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BHU MPA SGPA Calculator</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      background-image: url('https://www.transparenttextures.com/patterns/connected.png');
+    }
+    header {
+      background-color: #0056b3;
+      color: white;
+      padding: 1rem;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .input-group {
+      margin: 0.8rem 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input[type="number"], select {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      width: 200px;
+      text-align: center;
+    }
+    #marksForm > div {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+      gap: 10px;
+      background-color: #fff;
+      padding: 0.5rem;
+      border-radius: 12px;
+      width: 95%;
+      max-width: 500px;
+    }
+    #marksForm label {
+      flex: 1;
+      text-align: left;
+    }
+    #marksForm input {
+      flex: 1;
+    }
+    table {
+      margin: 1rem auto;
+      border-collapse: collapse;
+      width: 95%;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.6rem;
+    }
+    #calculateBtn {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      margin: 1rem;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    #calculateBtn:hover {
+      background-color: #0056b3;
+    }
+    footer {
+      background-color: black;
+      color: white;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    footer a {
+      color: green;
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      #marksForm > div {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>BHU MPA SGPA CALCULATOR</header>
   <main>
-    <div>
+    <div class="input-group">
       <label for="roll">Roll Number:</label>
-      <input type="number" id="roll" inputmode="numeric" pattern="\\d*" />
+      <input type="number" id="roll" inputmode="numeric" pattern="\d*" />
     </div>
-    <div>
+    <div class="input-group">
       <label for="semester">Semester:</label>
       <select id="semester">
         <option value="">Select</option>
@@ -29,6 +128,88 @@
     Made by Utkarsh with ❤️<br />
     <a href="https://t.me/ReallyUtkarsh" target="_blank">Contact - @ReallyUtkarsh</a>
   </footer>
-  <script src="script.js"></script>
+  <script>
+    const subjects = {
+      1: ["PA", "ADT - CE", "PPA", "EIFA", "C&A"],
+      2: ["PA", "ADT - ME", "PPA", "IAD", "C&A"]
+    };
+
+    const form = document.getElementById("marksForm");
+    const semesterSelect = document.getElementById("semester");
+    const calculateBtn = document.getElementById("calculateBtn");
+    const resultDiv = document.getElementById("result");
+
+    semesterSelect.addEventListener("change", () => {
+      form.innerHTML = "";
+      resultDiv.innerHTML = "";
+      const sem = semesterSelect.value;
+      if (!sem) return;
+
+      subjects[sem].forEach(sub => {
+        const row = document.createElement("div");
+        row.innerHTML = `
+          <label>${sub}</label>
+          <input type="number" min="0" max="30" placeholder="Sessional" inputmode="numeric" required />
+          <input type="number" min="0" max="70" placeholder="Theory" inputmode="numeric" required />
+        `;
+        form.appendChild(row);
+      });
+      calculateBtn.disabled = false;
+    });
+
+    function getGradePoint(total) {
+      if (total >= 91) return 10;
+      if (total >= 81) return 9;
+      if (total >= 71) return 8;
+      if (total >= 61) return 7;
+      if (total >= 51) return 6;
+      if (total >= 41) return 5;
+      if (total >= 31) return 4;
+      return 0;
+    }
+
+    calculateBtn.addEventListener("click", () => {
+      const roll = document.getElementById("roll").value;
+      const sem = semesterSelect.value;
+      if (!roll || !sem) return alert("Please fill in roll number and semester.");
+
+      const inputs = form.querySelectorAll("input");
+      const data = [];
+      let totalPoints = 0;
+      let totalCredits = 0;
+
+      for (let i = 0; i < inputs.length; i += 2) {
+        const sessional = parseInt(inputs[i].value);
+        const theory = parseInt(inputs[i + 1].value);
+        if (sessional > 30 || theory > 70) return alert("Marks exceed maximum allowed.");
+        const total = sessional + theory;
+        const gradePoint = getGradePoint(total);
+        totalPoints += gradePoint * 3;
+        totalCredits += 3;
+        data.push({
+          subject: subjects[sem][i / 2],
+          sessional,
+          theory,
+          total,
+          gradePoint
+        });
+      }
+
+      const sgpa = (totalPoints / totalCredits).toFixed(2);
+
+      let html = `<table><tr><th>Subject</th><th>Sessional</th><th>Theory</th><th>Total</th><th>Grade</th></tr>`;
+      data.forEach(row => {
+        html += `<tr><td>${row.subject}</td><td>${row.sessional}</td><td>${row.theory}</td><td>${row.total}</td><td>${row.gradePoint}</td></tr>`;
+      });
+      html += `</table><h2>SGPA: ${sgpa}</h2>`;
+      resultDiv.innerHTML = html;
+
+      fetch("https://script.google.com/macros/s/AKfycbxHnblehTGfyta5FdWD9POe172FJLWw1MwwUvxVEjrjbRiV1RgvmX7kVkZno0ymznua/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roll: roll, sgpa: sgpa })
+      });
+    });
+  </script>
 </body>
 </html>
