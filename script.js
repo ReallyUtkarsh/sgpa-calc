@@ -1,48 +1,53 @@
-function resetValues() {
-    document.querySelectorAll('input, select').forEach(input => input.value = '');
-    document.getElementById('result').innerHTML = '';
+const subjectsData = {
+    "Semester-1": ["CIPA", "ATCE", "PPA", "EIFA", "CA"],
+    "Semester-2": ["PA", "ADT", "PPA", "PPA", "IAD", "C&A"]
+};
+
+function loadSubjects() {
+    let semester = document.getElementById('semester').value;
+    let subjectsDiv = document.getElementById('subjects');
+    subjectsDiv.innerHTML = "";
+
+    if (semester) {
+        subjectsData[semester].forEach(subject => {
+            subjectsDiv.innerHTML += `
+                <div class="subject">
+                    <label>${subject}:</label>
+                    <input type="number" name="theory" placeholder="Theory Marks" min="1" max="70">
+                    <input type="number" name="sessional" placeholder="Sessional Marks" min="0" max="30">
+                </div>`;
+        });
+    }
 }
 
 function calculateSGPA() {
     let rollNumber = document.getElementById('rollNumber').value.trim();
     let semester = document.getElementById('semester').value;
-    if (!rollNumber) {
-        alert("Roll Number is mandatory!");
+    let subjects = document.querySelectorAll('.subject');
+
+    if (!rollNumber || !semester) {
+        alert("Please enter Roll Number and select a Semester.");
         return;
     }
 
-    let totalCredits = 15;
+    let totalCredits = subjects.length * 3;
     let totalCreditPoints = 0;
-    let valid = true;
-    let resultHtml = '<table><tr><th>Subject</th><th>Theory</th><th>Sessional</th><th>Grade Point</th></tr>';
+    let subjectData = [];
 
-    for (let i = 1; i <= 5; i++) {
-        let theoryMarks = parseFloat(document.querySelector(`input[name=theory${i}]`).value);
-        let sessionalMarks = parseFloat(document.querySelector(`input[name=sessional${i}]`).value);
-
-        const totalMarks = theoryMarks + sessionalMarks;
-        const gradePoint = getGradePoint(totalMarks);
-        totalCreditPoints += gradePoint * 3;
-
-        resultHtml += `<tr><td>Paper ${i}</td><td>${theoryMarks}</td><td>${sessionalMarks}</td><td>${gradePoint}</td></tr>`;
-    }
-
-    const sgpa = (totalCreditPoints / totalCredits).toFixed(2);
-    resultHtml += `</table><p class="bold-text">SGPA: ${sgpa}</p>`;
-    document.getElementById('result').innerHTML = resultHtml;
-}
-
-async function submitSGPA() {
-    let rollNumber = document.getElementById('rollNumber').value;
-    let semester = document.getElementById('semester').value;
-    let sgpa = document.querySelector('.bold-text').textContent.replace("SGPA: ", "").trim();
-
-    await fetch("https://script.google.com/macros/s/AKfycbzlTuPxDBTvMgT2dHdK0SZPTvCtxQME2XbjLXCpUXD8omBapA5DDTMo1p1Yw2fv-eJdow/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ rollNumber, semester, sgpa })
+    subjects.forEach(subject => {
+        let theoryMarks = parseFloat(subject.querySelector('input[name=theory]').value);
+        let sessionalMarks = parseFloat(subject.querySelector('input[name=sessional]').value);
+        totalCreditPoints += getGradePoint(theoryMarks + sessionalMarks) * 3;
+        subjectData.push({ name: subject.querySelector('label').innerText, theory: theoryMarks, sessional: sessionalMarks });
     });
 
-    alert("SGPA saved successfully!");
+    let sgpa = (totalCreditPoints / totalCredits).toFixed(2);
+
+    fetch("YOUR_GOOGLE_SHEET_URL_HERE", {
+        method: "POST",
+        body: JSON.stringify({ rollNumber, semester, subjects: subjectData, sgpa }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    document.getElementById('result').innerHTML = `<p class="bold-text">SGPA: ${sgpa}</p>`;
 }
-document.getElementById("saveSGPA").addEventListener("click", submitSGPA);
