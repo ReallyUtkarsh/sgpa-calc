@@ -13,11 +13,12 @@
         </ul>
     </nav>
     <form id="sgpaForm">
-        <label>Roll Number (Mandatory):</label>
+        <label>Roll Number :</label>
         <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
-        
+
         <label>Select Semester:</label>
-        <select id="semester">
+        <select id="semester" onchange="loadSubjects()">
+            <option value="">-- Select Semester --</option>
             <option value="Semester-1">Semester-1</option>
             <option value="Semester-2">Semester-2</option>
         </select>
@@ -25,8 +26,6 @@
         <div id="subjects"></div>
 
         <button type="button" onclick="calculateSGPA()"><i class="fas fa-calculator"></i> Calculate SGPA</button>
-        <button type="button" onclick="resetValues()"><i class="fas fa-redo"></i> Reset</button>
-        <button type="button" id="saveSGPA"><i class="fas fa-save"></i> Save SGPA</button>
     </form>
 
     <div id="result"></div>
