@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MPA SGPA Calculator</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BHU MPA SGPA Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><h1>MPA SGPA Calculator</h1></li>
-        </ul>
-    </nav>
-
-    <form id="sgpaForm">
-        <label>Roll Number (Mandatory):</label>
-        <input type="text" id="rollNumber" placeholder="Enter Roll Number" required>
-
-        <label>Select Semester:</label>
-        <select id="semester" onchange="loadSubjects()">
-            <option value="">-- Select Semester --</option>
-            <option value="Semester-1">Semester-1</option>
-            <option value="Semester-2">Semester-2</option>
-        </select>
-
-        <div id="subjects"></div>
-
-        <button type="button" onclick="calculateSGPA()"><i class="fas fa-calculator"></i> Calculate SGPA</button>
-    </form>
-
+  <header>BHU MPA SGPA CALCULATOR</header>
+  <main>
+    <div>
+      <label for="roll">Roll Number:</label>
+      <input type="number" id="roll" inputmode="numeric" pattern="\\d*" />
+    </div>
+    <div>
+      <label for="semester">Semester:</label>
+      <select id="semester">
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+    <form id="marksForm"></form>
+    <button id="calculateBtn" disabled>Calculate SGPA</button>
     <div id="result"></div>
-
-    <footer id="footer">
-        <p>Made by Utkarsh with ❤️</p>
-        <p>Contact: <a href="https://t.me/ReallyUtkarsh" target="_blank">@ReallyUtkarsh</a></p>
-    </footer>
-
-    <script src="script.js"></script>
+  </main>
+  <footer>
+    Made by Utkarsh with ❤️<br />
+    <a href="https://t.me/ReallyUtkarsh" target="_blank">Contact - @ReallyUtkarsh</a>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
