@@ -107,7 +107,7 @@
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR</header>
+  <header>🎓 BHU MPA SGPA CALCULATOR V2.1</header>
   <div class="container">
     <label>🆔 Roll Number</label>
     <input type="number" id="roll" inputmode="numeric">
@@ -204,18 +204,21 @@
 
       document.getElementById('output').innerHTML = table;
 
-      fetch("https://script.google.com/macros/s/AKfycbzgxYSIBOm1vgevj676JQngyGCMNhsxHJLIXz7L82RfmrjWIlEEyfGdASUXDBRd6Y8n/exec", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          rollNumber: roll,
-          sgpa: sgpa
-        })
-      }).then(res => res.text())
-        .then(data => console.log("Saved:", data))
-        .catch(err => console.error("Error:", err));
+      fetch("https://script.google.com/macros/s/AKfycbzwGciq-SWeErsxrtIlh99IoKgf8IlU5kUbKXDUYPO63RqT4ai-hr3DdIqfxQp4r882/exec", {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    rollNumber: roll,      // ← your input variable
+    semester: semester,    // ← your input variable
+    sgpa: sgpa             // ← your calculated SGPA
+  })
+})
+.then(res => res.text())
+.then(data => console.log("Saved:", data))
+.catch(err => console.error("Error:", err));
+
     }
   </script>
 </body>
