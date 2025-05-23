@@ -1,162 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BHU MPA SGPA Calculator V2.0</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BHU MPA SGPA Calculator</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #e5ddd5;
-      background-image: url('https://www.transparenttextures.com/patterns/speech-bubbles.png');
-      background-repeat: repeat;
-      background-attachment: fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #000;
+      color: #fff;
+      background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
     }
 
     header {
-      background: rgba(0, 86, 179, 0.8);
-      backdrop-filter: blur(6px);
+      position: fixed;
+      top: 0;
       width: 100%;
-      text-align: center;
-      padding: 20px;
+      background: rgba(30, 144, 255, 0.2);
+      backdrop-filter: blur(20px);
       color: white;
-      font-size: 1.8rem;
-      border-radius: 0 0 20px 20px;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 1.7rem;
+      font-weight: bold;
+      z-index: 999;
+      border-bottom: 1px solid #ffffff33;
+    }
+
+    main {
+      padding: 120px 20px 40px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .form-group {
       margin-bottom: 20px;
     }
 
-    .container {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      padding: 30px;
-      width: 95%;
-      max-width: 500px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    input, select, button {
+    input, select {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
       font-size: 1rem;
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .subjects-grid label {
+      margin: auto 0;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
     }
 
     button {
-      background-color: #0056b3;
-      color: white;
+      padding: 12px 20px;
       border: none;
+      border-radius: 12px;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #003f80;
-    }
-
-    .subject-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .subject-row input {
-      flex: 1;
-    }
-
-    .results {
-      margin-top: 20px;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    .results th, .results td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-    }
-
-    .results th {
-      background-color: #f2f2f2;
-    }
-
-    footer {
-      margin-top: 30px;
-      text-align: center;
+    #calculateBtn {
+      background-color: #4caf50;
       color: white;
-      background: black;
-      width: 100%;
-      padding: 10px;
-      border-radius: 20px;
     }
 
-    .footer-link {
-      color: green;
+    #calculateBtn:hover {
+      background-color: #388e3c;
+    }
+
+    #resetBtn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #resetBtn:hover {
+      background-color: #c62828;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+      text-align: center;
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #333;
+    }
+
+    th {
+      background-color: #2c2c2c;
+    }
+
+    .footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #333;
+    }
+
+    .footer a {
       text-decoration: underline;
+      color: #00ff88;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .subjects-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR V2.1</header>
-  <div class="container">
-    <label>🆔 Roll Number</label>
-    <input type="number" id="roll" inputmode="numeric">
+  <header>🎓 BHU MPA SGPA CALCULATOR</header>
+  <main>
+    <div class="form-group">
+      <label for="rollNumber">Roll Number</label>
+      <input type="number" id="rollNumber" inputmode="numeric" />
+    </div>
+    <div class="form-group">
+      <label for="semesterSelect">Semester</label>
+      <select id="semesterSelect">
+        <option value="">--Select--</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+      </select>
+    </div>
 
-    <label>🎓 Semester</label>
-    <select id="semester" onchange="loadSubjects()">
-      <option value="">--Select Semester--</option>
-      <option value="1">Semester 1</option>
-      <option value="2">Semester 2</option>
-    </select>
+    <div id="subjectContainer"></div>
 
-    <div id="subjects"></div>
+    <div class="button-container">
+      <button id="calculateBtn">🎓 Calculate SGPA</button>
+      <button id="resetBtn">🔄 Reset</button>
+    </div>
 
-    <button id="calculate" onclick="calculateSGPA()" disabled>📊 Calculate SGPA</button>
+    <div id="resultTableContainer"></div>
+    <h2 id="sgpaResult"></h2>
 
-    <div id="output"></div>
-  </div>
-
-  <footer>
-    Made by Utkarsh with ❤️<br>
-    <a class="footer-link" href="https://t.me/ReallyUtkarsh" target="_blank">Contact - @ReallyUtkarsh</a>
-  </footer>
+    <div class="footer">
+      Made by Utkarsh with ❤️<br/>
+      Contact - <a href="https://t.me/ReallyUtkarsh" target="_blank">@ReallyUtkarsh</a>
+    </div>
+  </main>
 
   <script>
-    const subjectsBySemester = {
+    const semesterSubjects = {
       1: ["PA", "ADT - CE", "PPA", "EIFA", "C&A"],
       2: ["PA", "ADT - ME", "PPA", "IAD", "C&A"]
     };
 
-    function loadSubjects() {
-      const semester = document.getElementById('semester').value;
-      const subjectDiv = document.getElementById('subjects');
-      subjectDiv.innerHTML = '';
+    const subjectContainer = document.getElementById("subjectContainer");
+    const semesterSelect = document.getElementById("semesterSelect");
 
-      if (!semester) return;
+    semesterSelect.addEventListener("change", () => {
+      const sem = semesterSelect.value;
+      subjectContainer.innerHTML = "";
 
-      subjectsBySemester[semester].forEach(sub => {
-        const row = document.createElement('div');
-        row.className = 'subject-row';
-        row.innerHTML = `
-          <label style="width: 30%;">${sub}</label>
-          <input type="number" placeholder="Sessional (30)" max="30" min="0" inputmode="numeric" class="sessional">
-          <input type="number" placeholder="Theory (70)" max="70" min="0" inputmode="numeric" class="theory">
+      if (!sem) return;
+
+      const subjects = semesterSubjects[sem];
+      const grid = document.createElement("div");
+      grid.className = "subjects-grid";
+
+      subjects.forEach(sub => {
+        grid.innerHTML += `
+          <label>${sub}</label>
+          <input type="number" inputmode="numeric" min="0" max="30" placeholder="Sessional" class="sessional" />
+          <input type="number" inputmode="numeric" min="0" max="70" placeholder="Theory" class="theory" />
         `;
-        subjectDiv.appendChild(row);
       });
 
-      document.getElementById('calculate').disabled = false;
-    }
+      subjectContainer.appendChild(grid);
+    });
 
     function getGradePoint(total) {
       if (total >= 91) return 10;
@@ -169,57 +213,75 @@
       return 0;
     }
 
-    function calculateSGPA() {
-      const roll = document.getElementById('roll').value;
-      if (!roll) return alert("Please enter Roll Number");
+    document.getElementById("calculateBtn").addEventListener("click", () => {
+      const roll = document.getElementById("rollNumber").value;
+      const sem = semesterSelect.value;
+      if (!roll || !sem) {
+        alert("Please enter Roll Number and Semester");
+        return;
+      }
 
-      const sessionals = document.querySelectorAll('.sessional');
-      const theory = document.querySelectorAll('.theory');
-      const semester = document.getElementById('semester').value;
-      const subjects = subjectsBySemester[semester];
+      const sessionals = document.querySelectorAll(".sessional");
+      const theory = document.querySelectorAll(".theory");
 
-      let totalCredits = subjects.length * 3;
-      let totalCreditPoints = 0;
+      let resultTable = `
+        <table>
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Sessional</th>
+              <th>Theory</th>
+              <th>Total</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
 
-      let table = `<table class='results'><tr><th>Subject</th><th>Sessional</th><th>Theory</th><th>Total</th><th>Grade</th></tr>`;
+      let totalPoints = 0;
+      let totalCredits = 0;
 
-      for (let i = 0; i < subjects.length; i++) {
-        const s = parseInt(sessionals[i].value || 0);
-        const t = parseInt(theory[i].value || 0);
+      for (let i = 0; i < sessionals.length; i++) {
+        const sub = semesterSubjects[sem][i];
+        const s = parseInt(sessionals[i].value) || 0;
+        const t = parseInt(theory[i].value) || 0;
 
         if (s > 30 || t > 70) {
-          alert("Marks exceed limit in " + subjects[i]);
+          alert("Marks exceed maximum allowed.");
           return;
         }
 
         const total = s + t;
         const grade = getGradePoint(total);
-        totalCreditPoints += grade * 3;
-
-        table += `<tr><td>${subjects[i]}</td><td>${s}</td><td>${t}</td><td>${total}</td><td>${grade}</td></tr>`;
+        resultTable += `
+          <tr>
+            <td>${sub}</td>
+            <td>${s}</td>
+            <td>${t}</td>
+            <td>${total}</td>
+            <td>${grade}</td>
+          </tr>
+        `;
+        totalPoints += grade * 3;
+        totalCredits += 3;
       }
 
-      const sgpa = (totalCreditPoints / totalCredits).toFixed(2);
-      table += `</table><h3 style='text-align:center;'>🎯 SGPA: ${sgpa}</h3>`;
+      resultTable += `</tbody></table>`;
+      document.getElementById("resultTableContainer").innerHTML = resultTable;
 
-      document.getElementById('output').innerHTML = table;
+      const sgpa = (totalPoints / totalCredits).toFixed(2);
+      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA: ${sgpa}`;
 
-      fetch("https://script.google.com/macros/s/AKfycbw3HPoThIqCS_MpJXB1-SqV7NCwtTxW1Ele3-km5I5mCCWMF9168t74k_3fEWyHBGcj_A/exec", {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    rollNumber: roll,      // ← your input variable
-    semester: semester,    // ← your input variable
-    sgpa: sgpa             // ← your calculated SGPA
-  })
-})
-.then(res => res.text())
-.then(data => console.log("Saved:", data))
-.catch(err => console.error("Error:", err));
+      // OPTIONAL: Add logging logic to Google Sheets or Airtable here
+    });
 
-    }
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.getElementById("rollNumber").value = "";
+      document.getElementById("semesterSelect").selectedIndex = 0;
+      subjectContainer.innerHTML = "";
+      document.getElementById("resultTableContainer").innerHTML = "";
+      document.getElementById("sgpaResult").innerText = "";
+    });
   </script>
 </body>
 </html>
