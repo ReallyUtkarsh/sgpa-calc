@@ -141,7 +141,7 @@
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR</header>
+  <header>🎓 BHU MPA SGPA CALCULATOR V2.1</header>
   <main>
     <div class="form-group">
       <label for="rollNumber">Roll Number</label>
@@ -270,7 +270,7 @@
       document.getElementById("resultTableContainer").innerHTML = resultTable;
 
       const sgpa = (totalPoints / totalCredits).toFixed(2);
-      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA: ${sgpa}`;
+      document.getElementById("sgpaResult").innerText = `Your SGPA: ${sgpa}`;
 
       // OPTIONAL: Add logging logic to Google Sheets or Airtable here
     });
