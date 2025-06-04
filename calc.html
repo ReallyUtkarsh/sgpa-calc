@@ -45,7 +45,7 @@
       margin-bottom: 5px;
     }
 
-    input, select {
+    select, input {
       width: 100%;
       padding: 12px;
       border: none;
@@ -60,6 +60,7 @@
       grid-template-columns: 2fr 1fr 1fr;
       gap: 10px;
       margin-top: 10px;
+      align-items: center;
     }
 
     .subjects-grid label {
@@ -141,12 +142,8 @@
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR V2.1</header>
+  <header>🎓 BHU MPA SGPA CALCULATOR v2.2</header>
   <main>
-    <div class="form-group">
-      <label for="rollNumber">Roll Number</label>
-      <input type="number" id="rollNumber" inputmode="numeric" />
-    </div>
     <div class="form-group">
       <label for="semesterSelect">Semester</label>
       <select id="semesterSelect">
@@ -203,21 +200,33 @@
     });
 
     function getGradePoint(total) {
-      if (total >= 91) return 10;
-      if (total >= 81) return 9;
-      if (total >= 71) return 8;
-      if (total >= 61) return 7;
-      if (total >= 51) return 6;
-      if (total >= 41) return 5;
-      if (total >= 31) return 4;
+      if (total >= 90) return 10;
+      if (total >= 80) return 9;
+      if (total >= 70) return 8;
+      if (total >= 60) return 7;
+      if (total >= 50) return 6;
+      if (total >= 40) return 5;
+      if (total >= 30) return 4;
       return 0;
     }
 
+    function getGradeLetter(point) {
+      switch (point) {
+        case 10: return "S";
+        case 9: return "A";
+        case 8: return "B";
+        case 7: return "C";
+        case 6: return "D";
+        case 5: return "E";
+        case 4: return "F";
+        default: return "F";
+      }
+    }
+
     document.getElementById("calculateBtn").addEventListener("click", () => {
-      const roll = document.getElementById("rollNumber").value;
       const sem = semesterSelect.value;
-      if (!roll || !sem) {
-        alert("Please enter Roll Number and Semester");
+      if (!sem) {
+        alert("Please select a semester.");
         return;
       }
 
@@ -232,6 +241,7 @@
               <th>Sessional</th>
               <th>Theory</th>
               <th>Total</th>
+              <th>Grade Point</th>
               <th>Grade</th>
             </tr>
           </thead>
@@ -252,17 +262,20 @@
         }
 
         const total = s + t;
-        const grade = getGradePoint(total);
+        const gradePoint = getGradePoint(total);
+        const gradeLetter = getGradeLetter(gradePoint);
+
         resultTable += `
           <tr>
             <td>${sub}</td>
             <td>${s}</td>
             <td>${t}</td>
             <td>${total}</td>
-            <td>${grade}</td>
+            <td>${gradePoint}</td>
+            <td>${gradeLetter}</td>
           </tr>
         `;
-        totalPoints += grade * 3;
+        totalPoints += gradePoint * 3;
         totalCredits += 3;
       }
 
@@ -270,13 +283,10 @@
       document.getElementById("resultTableContainer").innerHTML = resultTable;
 
       const sgpa = (totalPoints / totalCredits).toFixed(2);
-      document.getElementById("sgpaResult").innerText = `Your SGPA: ${sgpa}`;
-
-      // OPTIONAL: Add logging logic to Google Sheets or Airtable here
+      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA: ${sgpa}`;
     });
 
     document.getElementById("resetBtn").addEventListener("click", () => {
-      document.getElementById("rollNumber").value = "";
       document.getElementById("semesterSelect").selectedIndex = 0;
       subjectContainer.innerHTML = "";
       document.getElementById("resultTableContainer").innerHTML = "";
