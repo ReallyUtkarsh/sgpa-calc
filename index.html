@@ -80,26 +80,16 @@
       border-radius: 12px;
       font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-      transition: background-color 0.3s ease;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
     }
 
-    #calculateBtn {
-      background-color: #4caf50;
-      color: white;
-    }
-
-    #calculateBtn:hover {
-      background-color: #388e3c;
-    }
-
-    #resetBtn {
-      background-color: #f44336;
-      color: white;
-    }
-
-    #resetBtn:hover {
-      background-color: #c62828;
+    button:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     table {
@@ -107,7 +97,8 @@
       margin-top: 30px;
       border-collapse: collapse;
       text-align: center;
-      background-color: #1c1c1c;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
       border-radius: 12px;
       overflow: hidden;
     }
@@ -142,7 +133,7 @@
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR v2.2</header>
+  <header>🎓 BHU MPA SGPA CALCULATOR V2.2</header>
   <main>
     <div class="form-group">
       <label for="semesterSelect">Semester</label>
@@ -206,7 +197,6 @@
       if (total >= 60) return 7;
       if (total >= 50) return 6;
       if (total >= 40) return 5;
-      if (total >= 30) return 4;
       return 0;
     }
 
@@ -218,7 +208,6 @@
         case 7: return "C";
         case 6: return "D";
         case 5: return "E";
-        case 4: return "F";
         default: return "F";
       }
     }
@@ -283,7 +272,7 @@
       document.getElementById("resultTableContainer").innerHTML = resultTable;
 
       const sgpa = (totalPoints / totalCredits).toFixed(2);
-      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA: ${sgpa}`;
+      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA is.. ${sgpa}`;
     });
 
     document.getElementById("resetBtn").addEventListener("click", () => {
