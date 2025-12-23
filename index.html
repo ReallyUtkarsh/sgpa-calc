@@ -11,26 +11,41 @@
       font-family: "Segoe UI", sans-serif;
       background-color: #000;
       color: #fff;
-      background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+      /* Background Image */
+      background-image: url('bg-neon.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
     }
 
+    /* --- LIQUID GLASS HEADER --- */
     header {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background: rgba(30, 144, 255, 0.2);
-      backdrop-filter: blur(20px);
-      color: white;
-      text-align: center;
       padding: 20px 0;
+      text-align: center;
       font-size: 1.7rem;
       font-weight: bold;
-      z-index: 999;
-      border-bottom: 1px solid #ffffff33;
+      z-index: 1000;
+      color: #fff;
+
+      /* Liquid Glass Properties */
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      
+      /* Text Glow */
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.5), 0 2px 5px rgba(0,0,0,0.5);
     }
 
     main {
-      padding: 120px 20px 40px;
+      padding: 130px 20px 40px;
       max-width: 700px;
       margin: auto;
     }
@@ -43,28 +58,46 @@
       display: block;
       font-weight: bold;
       margin-bottom: 5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     }
 
     select, input {
       width: 100%;
       padding: 12px;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       font-size: 1rem;
-      background-color: #1e1e1e;
+      background-color: rgba(30, 30, 30, 0.8);
       color: white;
+      box-sizing: border-box; 
     }
 
+    select:focus, input:focus {
+      outline: none;
+      border-color: #00ff88;
+      box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+    }
+
+    /* Input Container with Blur */
     .subjects-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 10px;
+      gap: 15px;
       margin-top: 10px;
       align-items: center;
+      
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 25px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
     .subjects-grid label {
       margin: auto 0;
+      font-weight: 600;
     }
 
     .button-container {
@@ -75,72 +108,135 @@
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 25px;
       border: none;
       border-radius: 12px;
       font-size: 1rem;
       cursor: pointer;
       backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 255, 136, 0.15);
       color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
       transition: all 0.3s ease;
+      font-weight: bold;
     }
 
     button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 255, 136, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
     }
 
+    #resetBtn {
+      background: rgba(255, 50, 50, 0.15);
+      border: 1px solid rgba(255, 50, 50, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 50, 50, 0.2);
+    }
+    
+    #resetBtn:hover {
+      background: rgba(255, 50, 50, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 50, 50, 0.4);
+    }
+
+    /* Result Table with Blur */
     table {
       width: 100%;
       margin-top: 30px;
       border-collapse: collapse;
       text-align: center;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
+      
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      
+      border-radius: 16px;
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     }
 
     th, td {
-      padding: 12px;
-      border-bottom: 1px solid #333;
+      padding: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     th {
-      background-color: #2c2c2c;
+      background-color: rgba(0, 255, 136, 0.1);
+      color: #00ff88;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+    
+    td {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    h2#sgpaResult {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2rem;
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+      background: rgba(0,0,0,0.3);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+    
+    div#sgpaContainer {
+      text-align: center;
     }
 
     .footer {
-      margin-top: 50px;
+      margin-top: 60px;
       text-align: center;
       padding: 20px;
-      border-top: 1px solid #333;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
     }
 
     .footer a {
-      text-decoration: underline;
+      text-decoration: none;
       color: #00ff88;
       font-weight: bold;
+      transition: color 0.3s;
+    }
+    
+    .footer a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #00ff88;
     }
 
     @media (max-width: 600px) {
       .subjects-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .subjects-grid label {
+        margin-top: 10px;
+        color: #00ff88;
+      }
+      th, td {
+        padding: 10px 5px;
+        font-size: 0.85rem;
       }
     }
   </style>
 </head>
 <body>
-  <header>🎓 BHU MPA SGPA CALCULATOR V2.2</header>
+  <header>🎓 BHU MPA SGPA CALCULATOR V3.0</header>
   <main>
     <div class="form-group">
-      <label for="semesterSelect">Semester</label>
+      <label for="semesterSelect">Select Semester</label>
       <select id="semesterSelect">
-        <option value="">--Select--</option>
+        <option value="">-- Select Semester --</option>
         <option value="1">Semester 1</option>
         <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
       </select>
     </div>
 
@@ -152,18 +248,45 @@
     </div>
 
     <div id="resultTableContainer"></div>
-    <h2 id="sgpaResult"></h2>
+    <div id="sgpaContainer">
+      <h2 id="sgpaResult"></h2>
+    </div>
 
     <div class="footer">
-      Made by Utkarsh with ❤️<br/>
-      Contact - <a href="https://t.me/ReallyUtkarsh" target="_blank">@ReallyUtkarsh</a>
-    </div>
+      Made with ❤️ by <a href="https://t.me/ReallyUtkarsh" target="_blank">ReallyUtkarsh</a><br/>
+          </div>
   </main>
 
   <script>
-    const semesterSubjects = {
-      1: ["PA", "ADT - CE", "PPA", "EIFA", "C&A"],
-      2: ["PA", "ADT - ME", "PPA", "IAD", "C&A"]
+    const semesterData = {
+      1: [
+        { name: "PA", credit: 3 },
+        { name: "ADT - CE", credit: 3 },
+        { name: "PPA", credit: 3 },
+        { name: "EIFA", credit: 3 },
+        { name: "C&A", credit: 3 }
+      ],
+      2: [
+        { name: "PA", credit: 3 },
+        { name: "ADT - ME", credit: 3 },
+        { name: "PPA", credit: 3 },
+        { name: "IAD", credit: 3 },
+        { name: "C&A", credit: 3 }
+      ],
+      3: [
+        { name: "LGI", credit: 4 },
+        { name: "CPA", credit: 4 },
+        { name: "PP", credit: 3 },
+        { name: "FAI", credit: 3 },
+        { name: "IES", credit: 3 }
+      ],
+      4: [
+        { name: "PSI", credit: 4 },
+        { name: "DA", credit: 4 },
+        { name: "TPM", credit: 3 },
+        { name: "SWA", credit: 3 },
+        { name: "RMPA", credit: 3 }
+      ]
     };
 
     const subjectContainer = document.getElementById("subjectContainer");
@@ -175,15 +298,16 @@
 
       if (!sem) return;
 
-      const subjects = semesterSubjects[sem];
+      const subjects = semesterData[sem];
       const grid = document.createElement("div");
       grid.className = "subjects-grid";
 
       subjects.forEach(sub => {
+        // Prevent negative input on typing
         grid.innerHTML += `
-          <label>${sub}</label>
-          <input type="number" inputmode="numeric" min="0" max="30" placeholder="Sessional" class="sessional" />
-          <input type="number" inputmode="numeric" min="0" max="70" placeholder="Theory" class="theory" />
+          <label>${sub.name}</label>
+          <input type="number" inputmode="numeric" min="0" max="70" placeholder="Theory (70)" class="theory" oninput="validity.valid||(value='');" />
+          <input type="number" inputmode="numeric" min="0" max="30" placeholder="Sessional (30)" class="sessional" data-credit="${sub.credit}" data-name="${sub.name}" oninput="validity.valid||(value='');" />
         `;
       });
 
@@ -227,26 +351,30 @@
           <thead>
             <tr>
               <th>Subject</th>
-              <th>Sessional</th>
+              <th>Credit</th>
               <th>Theory</th>
+              <th>Sessional</th>
               <th>Total</th>
-              <th>Grade Point</th>
+              <th>GP</th>
               <th>Grade</th>
             </tr>
           </thead>
           <tbody>
       `;
 
-      let totalPoints = 0;
+      let totalWeightedPoints = 0;
       let totalCredits = 0;
 
       for (let i = 0; i < sessionals.length; i++) {
-        const sub = semesterSubjects[sem][i];
+        const subName = sessionals[i].getAttribute("data-name");
+        const subCredit = parseInt(sessionals[i].getAttribute("data-credit"));
+        
         const s = parseInt(sessionals[i].value) || 0;
         const t = parseInt(theory[i].value) || 0;
 
-        if (s > 30 || t > 70) {
-          alert("Marks exceed maximum allowed.");
+        // FIXED: Added check for negative values (s < 0 || t < 0)
+        if (s < 0 || t < 0 || s > 30 || t > 70) {
+          alert(`Invalid marks for ${subName}. \nMarks cannot be negative or exceed limits (Theory: 70, Sessional: 30).`);
           return;
         }
 
@@ -256,23 +384,29 @@
 
         resultTable += `
           <tr>
-            <td>${sub}</td>
-            <td>${s}</td>
+            <td>${subName}</td>
+            <td>${subCredit}</td>
             <td>${t}</td>
+            <td>${s}</td>
             <td>${total}</td>
             <td>${gradePoint}</td>
             <td>${gradeLetter}</td>
           </tr>
         `;
-        totalPoints += gradePoint * 3;
-        totalCredits += 3;
+        
+        totalWeightedPoints += gradePoint * subCredit;
+        totalCredits += subCredit;
       }
 
       resultTable += `</tbody></table>`;
       document.getElementById("resultTableContainer").innerHTML = resultTable;
 
-      const sgpa = (totalPoints / totalCredits).toFixed(2);
-      document.getElementById("sgpaResult").innerText = `⭐ Your SGPA is.. ${sgpa}`;
+      if (totalCredits > 0) {
+        const sgpa = (totalWeightedPoints / totalCredits).toFixed(2);
+        document.getElementById("sgpaResult").innerText = `⭐ Your SGPA is.. ${sgpa}`;
+      } else {
+        document.getElementById("sgpaResult").innerText = "Error";
+      }
     });
 
     document.getElementById("resetBtn").addEventListener("click", () => {
